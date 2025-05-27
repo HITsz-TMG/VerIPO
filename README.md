@@ -86,7 +86,7 @@ The most effective development of adaptive reasoning in an LMRM may occur throug
 ## 4. Citations
 
 ```bibtex
-@article{li2025perception,
+@article{li2025veripo,
   title={VerIPO: Cultivating Long Reasoning in Video-LLMs via Verifier-Gudied Iterative Policy Optimization},
   author={Li, Yunxin and Chen, Xinyu and Li, Zitao and Liu, Zhenyu and Wang, Longyue and Luo, Wenhan and Hu, Baotian and Zhang, Min},
   journal={arXiv preprint arXiv:2505.19000},
