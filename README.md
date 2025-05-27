@@ -14,7 +14,7 @@ Experimental results demonstrate: 1) Significantly faster and more effective opt
 
 
 ![A screenshot of the application](images/abs.png)
-Figure 1: **Experimental Findings**. Figures (A, D): Initial GRPO training with different data types shows only utilizing Video-QA data decreases response length. Figures (B, E): Continual GRPO training with/without Verifier-guided DPO (VerIPO) demonstrates VerIPO improves accuracy and response length. Figure (C): Inconsistency rate (thinking vs. final answer) at different stages reveals our method lowers contextual inconsistency of long CoTs while GRPO increases it. Figure (F): Performance on challenging video reasoning dataset VSI-Bench [81] shows VerIPO (trained with Qwen2.5-VL-7B) outperforms strong LMMs including GPT-4o [23], Video-R1 [18], and Kimi-VL [61].
+Figure 1: **Experimental Findings**. Figures (A, D): Initial GRPO training with different data types shows only utilizing Video-QA data decreases response length. Figures (B, E): Continual GRPO training with/without Verifier-guided DPO (VerIPO) demonstrates VerIPO improves accuracy and response length. Figure (C): **Inconsistency rate (thinking vs. final answer)** at different stages reveals our method lowers contextual inconsistency of long CoTs while GRPO increases it. Figure (F): Performance on challenging video reasoning dataset VSI-Bench [81] shows VerIPO (trained with Qwen2.5-VL-7B) outperforms strong LMMs including GPT-4o [23], Video-R1 [18], and Kimi-VL [61].
 
 
 ## 2. Approach
