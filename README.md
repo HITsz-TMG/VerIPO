@@ -2,6 +2,12 @@
 
 [[📄 Paper Link](https://arxiv.org/abs/2505.19000)] 
 
+| Training Loop Formation            | Supervision Type        | Speed  | Exploration/Path Characteristics |
+| :--------------------------------- | :---------------------- | :----- | :------------------------------- |
+| Strongly supervised SFT            | Cross Entropy (Single)  | Fastest   | Single path                      |
+| Directed optimization supervision (DPO) | Pair (Two)               | Fast | Pair-wise                        |
+| Outcome-based Group optimization (GRPO)                 | Sampling (N)            | Slower | Broad exploration                |
+
 The datasets, codes, and model checkpoints will be released soon.
 
 ## 1. Overview
