@@ -1,4 +1,4 @@
-# VerIPO
+# VerIPO: Long Reasoning Video-R1 Model with Iterative Policy Optimization
 
 [[📄 Paper Link](https://arxiv.org/abs/2505.19000)] 
 
