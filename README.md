@@ -1,5 +1,7 @@
 # VerIPO
 
+[[📄 Paper Link](https://arxiv.org/abs/2505.19000)] 
+
 The datasets, codes, and model checkpoints will be released soon.
 
 ## 1. Overview
