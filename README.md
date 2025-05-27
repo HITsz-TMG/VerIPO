@@ -2,14 +2,23 @@
 
 The datasets, codes, and model checkpoints will be released soon.
 
-
 ## 1. Overview
 
 Popular Reinforcement Fine-Tuning (RFT) methods, e.g., Group Relative Policy Optimization (GRPO), are limited by data preparation bottlenecks (e.g., noise or high cost) and exhibit unstable improvements in the quality of long chain-of-thoughts (CoTs) and downstream performance. To address these limitations, we propose **VerIPO**, a Verifier-guided Iterative Policy Optimization method designed to gradually improve video LLMs' capacity for generating deep, long-term reasoning chains.  The core component is *Rollout-Aware Verifier*, positioned between the GRPO and Direct Preference Optimization (DPO) training phases to form the GRPO-Verifier-DPO training loop. This verifier leverages small LLMs as a judge to assess the reasoning logic of rollouts, enabling the construction of high-quality contrastive data, including reflective and contextually consistent CoTs. These curated preference samples drive the efficient DPO stage (7x faster than GRPO), leading to marked improvements in reasoning chain quality, especially in terms of length and contextual consistency. This training loop benefits from GRPO's expansive search and DPO's targeted optimization. 
 
-Experimental results demonstrate: 1) Significantly faster and more effective optimization compared to standard GRPO variants, yielding superior performance; 2) Our trained models exceed the direct-answer large-scale instruction-tuned Video-LLMs, producing long and contextually consistent CoTs on diverse video reasoning tasks; and 3) Our model with one iteration outperforms powerful LMMs (e.g., Kimi-VL) and long reasoning models (e.g., Video-R1), highlighting its effectiveness and stability.
+Experimental results demonstrate: 1) Significantly faster and more effective optimization compared to standard GRPO variants, yielding superior performance; 2) Our trained models **exceed the direct-answer large-scale instruction-tuned Video-LLMs**, producing long and contextually consistent CoTs on diverse video reasoning tasks; and 3) Our model with one iteration outperforms powerful LMMs (e.g., Kimi-VL) and long reasoning models (e.g., Video-R1), highlighting its effectiveness and stability.
+
+
+![A screenshot of the application](images/abs.png)
+Figure 1: **Experimental Findings**. Figures (A, D): Initial GRPO training with different data types shows only utilizing Video-QA data decreases response length. Figures (B, E): Continual GRPO training with/without Verifier-guided DPO (VerIPO) demonstrates VerIPO improves accuracy and response length. Figure (C): Inconsistency rate (thinking vs. final answer) at different stages reveals our method lowers contextual inconsistency of long CoTs while GRPO increases it. Figure (F): Performance on challenging video reasoning dataset VSI-Bench [81] shows VerIPO (trained with Qwen2.5-VL-7B) outperforms strong LMMs including GPT-4o [23], Video-R1 [18], and Kimi-VL [61].
+
 
 ## 2. Approach
+
+
+
+![A screenshot of model arc](images/model.png)
+Figure 2: **Overview of VerIPO workflow**. This training loop is guided by the Verifier's continuous evaluation and selection of training samples. The optimization process progressively improves the model's long-term reasoning capability by learning from high-quality and informative reasoning examples.
 
 The training loop follows a curriculum learning approach to activate the LMMs' long-term reasoning ability in video gradually. This begins with simple-modality data (text-only or image QA) for initial **reasoning activation** with GRPO, followed by the GRPO training using image and video QA data, as shown in the following Table.
 
