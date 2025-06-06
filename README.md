@@ -1,6 +1,6 @@
 # VerIPO: Long Reasoning Video-R1 Model with Iterative Policy Optimization
 
-[[📄 Paper Link](https://arxiv.org/abs/2505.19000)] 
+[[📄 Paper Link](https://arxiv.org/abs/2505.19000)] [[🤗 VerIPO-7B](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0)] 
 
 | Training Loop Formation            | Supervision Type        | Speed  | Exploration/Path Characteristics |
 | :--------------------------------- | :---------------------- | :----- | :------------------------------- |
@@ -89,7 +89,96 @@ Effective RL fine-tuning for adaptive reasoning necessitates sophisticated rewar
 The most effective development of adaptive reasoning in an LMRM may occur through an iterative optimization loop. This loop strategically blends enforced SFT, target-optimization DPO, and wide exploration GRPO, collectively allowing the model to progressively refine its capacity for selecting and executing the optimal reasoning strategy tailored to various video understanding tasks.
 
 
-## 4. Citations
+## 4. Getting Started
+VerIPO is bulid based on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). Before starting to inference or evaluate, you need to create the environment using the following commands.
+```
+git clone https://github.com/HITsz-TMG/VerIPO
+conda create -n veripo python=3.10
+conda activate veripo
+pip install -r requirements.txt
+pip install qwen-vl-utils[decord]
+pip install flash_attn --no-build-isolation
+```
+
+### Inference
+```
+from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
+from qwen_vl_utils import process_vision_info
+
+model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+     "Uni-MoE/VerIPO-7B-v1.0",
+     torch_dtype=torch.bfloat16,
+     attn_implementation="flash_attention_2",
+     device_map="auto",
+)
+
+# default processor
+processor = AutoProcessor.from_pretrained("Uni-MoE/VerIPO-7B-v1.0")
+
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "video",
+                "video": "file:///path/to/video1.mp4",
+                "max_pixels": 128*28*28,
+                "max_frames": 128,
+                "fps": 2.0
+            },
+            {"type": "text", "text": "Describe this video."},
+        ],
+    }
+]
+
+text = processor.apply_chat_template(
+    messages, tokenize=False, add_generation_prompt=True
+)
+image_inputs, video_inputs, video_kwargs = process_vision_info(messages, return_video_kwargs=True)
+inputs = processor(
+    text=[text],
+    images=image_inputs,
+    videos=video_inputs,
+    padding=True,
+    return_tensors="pt",
+    **video_kwargs,
+)
+inputs = inputs.to(model.device)
+
+# Inference: Generation of the output
+generated_ids = model.generate(**inputs, max_new_tokens=4096, temperature=1e-6, repetition_penalty=1.05)
+generated_ids_trimmed = [
+    out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+]
+output_text = processor.batch_decode(
+    generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+)
+print(output_text)
+```
+
+### Evaluation 
+VerIPO is evaluated on [VSI-Bench](https://huggingface.co/datasets/nyu-visionx/VSI-Bench), [VideoMMMU](https://huggingface.co/datasets/lmms-lab/VideoMMMU), [MMVU](https://huggingface.co/datasets/yale-nlp/MMVU), [TOMATO](https://huggingface.co/datasets/yale-nlp/TOMATO), [LVBench](https://huggingface.co/datasets/THUDM/LVBench), and [Video-MME](https://video-mme.github.io/home_page.html#leaderboard). 
+
+We have provided the JSON file, and you need to download the videos from the official website
+
+```bash
+# Example: Evaluation on VSI-Bench
+python evaluation/evaluation_vllm.py --model_path Uni-MoE/VerIPO-7B-v1.0 --output_path your_save_json_path --prompt_path evaluation/json/vsi_bench.json --video_dir path_to_video
+
+# Example: Evaluation on TOMATO(specific for fps=4.0)
+python evaluation/evaluation_vllm.py --model_path Uni-MoE/VerIPO-7B-v1.0 --output_path your_save_json_path --prompt_path evaluation/json/tomato.json --video_dir path_to_video --video_fps 4.0
+```
+
+We also provide the evaluation script for calculating scores.
+```bash
+python evaluation/calculate_score.py --pred_path your_save_json_path
+```
+
+## 5. Acknowledgements
+
+We acknowledge the outstanding open-source contributions from [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF), [MM-EUREKA](https://github.com/ModalMinds/MM-EUREKA) and [vLLM](https://github.com/vllm-project/vllm). We also extend our gratitude to [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) and [QwenVL](https://github.com/QwenLM/Qwen2.5-VL) for their open-source techniques and base models, which have enabled us to further our exploration.
+
+## 6. Citations
 
 ```bibtex
 @article{li2025veripo,
