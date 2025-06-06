@@ -8,7 +8,6 @@
 | Directed optimization supervision (DPO) | Pair (Two)               | Fast | Pair-wise                        |
 | Outcome-based Group optimization (GRPO)                 | Sampling (N)            | Slower | Broad exploration                |
 
-The datasets, codes, and model checkpoints will be released soon.
 
 ## 🔥 News
 **`2025.06.06`** 🚀 We release the checkpoint and evaluation code (Sec. 4 & 5) of VerIPO-7B-v1.0. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
