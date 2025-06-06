@@ -10,8 +10,8 @@
 
 The datasets, codes, and model checkpoints will be released soon.
 
-## 0. 🔥 News
-**`2025.06.06`** 🚀 We release the checkpoint and evaluation code of VerIPO-7B. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
+## 🔥 News
+**`2025.06.06`** 🚀 We release the checkpoint and evaluation code (Sec. 4 & 5) of VerIPO-7B-v1.0. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
 
 ## 1. Overview
 
