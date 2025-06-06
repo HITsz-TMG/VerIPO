@@ -8,7 +8,7 @@ from transformers import AutoTokenizer
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--pred_path", type=str, default="/data/cxy/models/Release/VerIPO-v1-7B")
+parser.add_argument("--pred_path", type=str, default="")
 args = parser.parse_args()
 
 data = json.load(open(args.pred_path, "r"))
