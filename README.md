@@ -91,17 +91,18 @@ The most effective development of adaptive reasoning in an LMRM may occur throug
 
 ## 4. Getting Started
 VerIPO is bulid based on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). Before starting to inference or evaluate, you need to create the environment using the following commands.
-```
+```bash
 git clone https://github.com/HITsz-TMG/VerIPO
 conda create -n veripo python=3.10
 conda activate veripo
+
 pip install -r requirements.txt
 pip install qwen-vl-utils[decord]
 pip install flash_attn --no-build-isolation
 ```
 
 ### Inference
-```
+```python
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
 from qwen_vl_utils import process_vision_info
 
