@@ -10,6 +10,9 @@
 
 The datasets, codes, and model checkpoints will be released soon.
 
+## 0. 🔥 News
+**`2025.06.06`** 🚀 We release the checkpoint and evaluation code of VerIPO-7B. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
+
 ## 1. Overview
 
 Popular Reinforcement Fine-Tuning (RFT) methods, e.g., Group Relative Policy Optimization (GRPO), are limited by data preparation bottlenecks (e.g., noise or high cost) and exhibit unstable improvements in the quality of long chain-of-thoughts (CoTs) and downstream performance. 
