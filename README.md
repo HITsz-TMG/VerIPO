@@ -1,6 +1,6 @@
 # VerIPO: Long Reasoning Video-R1 Model with Iterative Policy Optimization
 
-[[📄 Paper Link](https://arxiv.org/abs/2505.19000)] [[🤗 VerIPO-7B](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0)] 
+[[📄 Paper Link](https://arxiv.org/abs/2505.19000)] [[🤗 VerIPO-7B-v1.0](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0)] 
 
 | Training Loop Formation            | Supervision Type        | Speed  | Exploration/Path Characteristics |
 | :--------------------------------- | :---------------------- | :----- | :------------------------------- |
@@ -10,7 +10,7 @@
 
 
 ## 🔥 News
-**`2025.06.06`** 🚀 We release the checkpoint and evaluation code (Sec. 4 & 5) of VerIPO-7B-v1.0. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
+**`2025.06.06`** 🚀 We release the checkpoint and evaluation code (Sec. 4) of VerIPO-7B-v1.0. You can download the checkpoint in [🤗 Huggingface](https://huggingface.co/Uni-MoE/VerIPO-7B-v1.0).
 
 ## 1. Overview
 
