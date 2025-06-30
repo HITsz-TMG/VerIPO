@@ -54,44 +54,7 @@ Table 1: Training data and hyperparameters across different stages.
 
 Then, the whole GRPO-Verifier-DPO pipeline continuously enhances the model's long-term reasoning capability and gradually stabilizes its performance on video reasoning, iteratively pushing towards the model's inherent reasoning limit. During the iterative process, we will gradually discard 80\% of the simple examples ($r_a^{avg}=1$) from the previous GRPO training process to reduce the training time of models. The entire training process equips LMMs with robust long-chain reasoning ability with **slow-search GRPO (Wide Exploration) and fast-align DPO (Targeted Optimization)**.
 
-## 3. Discussion
-
-**Why do RL-trained LMRMs struggle to achieve consistent performance increase in all Video tasks?**
-
-*1) High-Quality and Diverse Video Reasoning Data (Verifiable Data)*: 
-Training LMRMs with RL requires vast amounts of high-quality data, particularly for video reasoning tasks that demand strong reasoning abilities or involve long reasoning paths. Most existing video datasets are primarily focused on simple recognition or short-term actions, lacking the complexity and scale needed for robust RL training.
-
-*2) Model Capability Limitations in Video Understanding (Foundation Models)*: 
-The base model, upon which LMRMs are built, often relies on pre-training methodologies that are not ideally suited for comprehensive video understanding, especially over long durations. While these foundation models excel at learning powerful representations from vast amounts of image-text pairs or short video clips, their pre-training objectives typically do not fully capture the nuances of long-range temporal dependencies, event causality and sequence, and contextual consistency over time.
-
-*3) Cold Start Problem (Data Quality)*: 
-If RL is used for fine-tuning after a supervised fine-tuning (SFT) phase, a poor initial SFT policy (especially for video) can hinder the RL agent's ability to explore effectively and find optimal policies. 
-
-
-**Why do direct-answer models outperform long-thinking model variants?**
-
-*1) Instability and sensitivity of RL training*: 
-The inherent instability of RL can make ``long-thinking" approaches particularly challenging to optimize for long visual inputs (video). RL training for long-thinking models is hampered by their expansive "action space", which makes efficient exploration difficult and can lead to getting stuck in suboptimal solutions. This complexity also exacerbates hyperparameter sensitivity, a common RL challenge, risking training instability. Direct-answer models benefit from a smaller output space, simplifying both exploration.
-
-*2) Not all prompts require thinking (\underline{Overthinking})*: 
-The benefit of ``long-thinking" is task-dependent. For many common prompts, a direct answer is sufficient, and forcing a reasoning process can introduce unnecessary complexity, computational overhead, and potential thinking errors. We should build LMRMs to perform adaptive reasoning for different prompts.
-
-*3) RL data size is limited*: 
-The effectiveness of RL, especially for complex generative tasks, is highly dependent on the quantity and quality of data. The limitations in RL data directly impact the ability of long-thinking models to learn effectively.
-
-**How to build an LMRM with adaptive reasoning capability?**
-
-*1) Reasoning activation for different thinking patterns*: 
-The reasoning activation stage should use diverse data, including direct-answer examples for conciseness, step-by-step reasoning examples for detailed thought processes, mixed modality reasoning to handle various input types, and reasoning-on-demand examples that prompt specific output styles. This multifaceted reasoning activation exposes the model to a range of reasoning strategies, preventing it from being confined to a single, rigid approach.
-
-*2) Reward function for adaptive reasoning*: 
-Effective RL fine-tuning for adaptive reasoning necessitates sophisticated reward functions beyond answer and format accuracy, e.g., including short, middle, or long thinking judge for different prompts. These should include composite rewards that value reasoning quality, conciseness, and coherence; efficiency-aware rewards that penalize overthinking on simple problems; and adaptive policy rewards that dynamically adjust based on problem complexity. Such nuanced signals guide the model to select the appropriate depth and style of reasoning for different prompts.
-
-*3) Iterative optimization enhancement strategy*: 
-The most effective development of adaptive reasoning in an LMRM may occur through an iterative optimization loop. This loop strategically blends enforced SFT, target-optimization DPO, and wide exploration GRPO, collectively allowing the model to progressively refine its capacity for selecting and executing the optimal reasoning strategy tailored to various video understanding tasks.
-
-
-## 4. Getting Started
+## 3. Getting Started
 VerIPO is bulid based on [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL). Before starting to inference or evaluate, you need to create the environment using the following commands.
 ```bash
 git clone https://github.com/HITsz-TMG/VerIPO
@@ -177,11 +140,11 @@ We also provide the evaluation script for calculating scores.
 python evaluation/calculate_score.py --pred_path your_save_json_path
 ```
 
-## 5. Acknowledgements
+## 4. Acknowledgements
 
 We acknowledge the outstanding open-source contributions from [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF), [MM-EUREKA](https://github.com/ModalMinds/MM-EUREKA) and [vLLM](https://github.com/vllm-project/vllm). We also extend our gratitude to [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) and [QwenVL](https://github.com/QwenLM/Qwen2.5-VL) for their open-source techniques and base models, which have enabled us to further our exploration.
 
-## 6. Citations
+## 5. Citations
 
 ```bibtex
 @article{li2025veripo,
